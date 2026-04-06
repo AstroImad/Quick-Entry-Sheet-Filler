@@ -89,9 +89,9 @@ def inject_custom_css():
 # ─────────────────────────────────────────────
 #  Text parser function
 # ─────────────────────────────────────────────
-def parse_text(text: str) -> dict:
+def parse_text(text: str, fields: list) -> dict:
     result = {}
-    for field in FIELDS:
+    for field in fields:
         base = re.escape(field).replace("s", "[sz]")
         pattern = rf"(?im)^\s*{base}\s*[:\-]\s*(.+)"
         match = re.search(pattern, text)
@@ -130,7 +130,7 @@ def render_sheet_filler(title: str, subtitle: str, fields: list, namespace: str)
 
         if st.button("⚡ Parse Text", use_container_width=True, key=f"parse_{namespace}"):
             if user_text.strip():
-                parsed = parse_text(user_text)
+                parsed = parse_text(user_text, fields)
                 for f in fields:
                     st.session_state[f"field_{f}_{namespace}"] = parsed.get(f, "")
             else:
@@ -139,7 +139,7 @@ def render_sheet_filler(title: str, subtitle: str, fields: list, namespace: str)
     # Right: editable fields
     with col_right:
         st.markdown('<span class="section-label">✏️ Edit & Copy</span>', unsafe_allow_html=True)
-        for f in FIELDS:
+        for f in fields:
             st.text_input(label=f, key=f"field_{f}_{namespace}")
 
     # Copy Row
