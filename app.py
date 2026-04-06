@@ -97,7 +97,7 @@ FIELDS = [
     "Customisation",
 ]
 
-def parse_email(text: str) -> dict:
+def parse_text(text: str) -> dict:
     result = {}
     for field in FIELDS:
         # Case-insensitive match, also catches slight spelling variants (e.g. Customization vs Customisation)
@@ -115,7 +115,7 @@ for f in FIELDS:
 # ── Header ─────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="header-block">
-  <h1>🏭 ROTOSPEED — ROW BUILDER</h1>
+  <h1>🪪 Quick Entry — Sheet Filler</h1>
   <p>Paste a customer reply → edit if needed → copy the whole row into Google Sheets.</p>
 </div>
 """, unsafe_allow_html=True)
@@ -124,8 +124,8 @@ col_left, col_right = st.columns([1, 1.1], gap="large")
 
 # ── Left: paste + parse ────────────────────────────────────────────────────────
 with col_left:
-    st.markdown('<span class="section-label">📧 Paste Customer Email</span>', unsafe_allow_html=True)
-    email_text = st.text_area(
+    st.markdown('<span class="section-label">📧 Paste Customer Details</span>', unsafe_allow_html=True)
+    user_text = st.text_area(
         label="email",
         label_visibility="collapsed",
         height=280,
@@ -142,14 +142,14 @@ with col_left:
         ),
     )
 
-    if st.button("⚡ Parse Email", use_container_width=True):
-        if email_text.strip():
-            parsed = parse_email(email_text)
+    if st.button("⚡ Parse Text", use_container_width=True):
+        if user_text.strip():
+            parsed = parse_text(user_text)
             # ✅ Write directly into session_state keys — this is the fix
             for f in FIELDS:
                 st.session_state[f"field_{f}"] = parsed.get(f, "")
         else:
-            st.warning("Paste an email first.")
+            st.warning("Paste some text first.")
 
 # ── Right: editable fields ─────────────────────────────────────────────────────
 with col_right:
