@@ -80,11 +80,11 @@ def inject_custom_css():
         border: none !important;
         font-weight: 600 !important;
     }
-    section[data-testid="stSidebar"] { display: none; }
     hr { border-color: #1e2536 !important; }
     label { color: #aab4c8 !important; font-size: 0.8rem !important; }
     </style>
     """, unsafe_allow_html=True)
+
 
 # ─────────────────────────────────────────────
 #  Text parser function

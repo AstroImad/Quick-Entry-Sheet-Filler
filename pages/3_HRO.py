@@ -1,16 +1,15 @@
 import streamlit as st
-from app import render_sheet_filler
+from core_logic import render_sheet_filler
 
 st.set_page_config(
-    page_title="Commercial (DM) — Sheet Filler",
-    page_icon="🪪",
+    page_title="HRO — Sheet Filler", 
+    page_icon="🪪", 
     initial_sidebar_state="expanded",
-    layout="wide",
-)
+    layout="wide")
 
-st.markdown("Commercial Data")
+st.markdown("HRO Data")
 
-COMMERCIAL_FILEDS = [
+HRO_FILEDS = [
     "Name",
     "Company",
     "Product type",
@@ -21,8 +20,8 @@ COMMERCIAL_FILEDS = [
 ]
 
 render_sheet_filler(
-    title="Quick Entry: Commercial Form",
+    title="Quick Entry: HRO Form",
     subtitle="Paste a customer reply → edit if needed → copy the whole row into Google Sheets.",
-    fields=COMMERCIAL_FILEDS,
-    namespace="COMMERCIAL" # UNIQUE NAMESPACE
+    fields=HRO_FILEDS,
+    namespace="HRO" # UNIQUE NAMESPACE
 )
